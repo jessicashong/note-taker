@@ -1,6 +1,7 @@
 const express = require('express');
 const path = require('path');
 const fs = require('fs');
+const db = require('./db/db.json');
 
 const PORT = 3001;
 const app = express();
@@ -10,16 +11,42 @@ app.use(express.urlencoded({ extended: true }));
 
 app.use(express.static('public'));
 
+app.get('/notes', (req, res) =>
+res.sendFile(path.join(__dirname, './public/notes.html'))
+);
+// app.get('*', (req, res) => 
+//     res.sendFile(path.join(__dirname, './public/index.html'))
+// );
+app.get('/api/notes', (req, res) => res.json(db));
+
+app.post('/api/notes', (req, res) => {
+    const { title, text } = req.body;
+
+    if(title && text) {
+        const newNote = {
+            title,
+            text,
+        };
+        const response = {
+            status: 'success',
+            body: newNote,
+        };
+
+        console.log(reponse);
+        res.status(201).json(response);
+    } else{
+        res.status(500).json('Error in posting note');
+    }
+});
+
+
+app.listen(PORT, () =>
+    console.log(`App listening at http://localhost:${PORT} 🚀`)
+);
 
 
 
 
-// GIVEN a note-taking application
-// WHEN I open the Note Taker
-// THEN I am presented with a landing page with a link to a notes page
-// WHEN I click on the link to the notes page
-// -----> acivity 3/4
-// THEN I am presented with a page with existing notes listed in the left-hand column, plus empty fields to enter a new note title and the note’s text in the right-hand column
 // WHEN I enter a new note title and the note’s text
 // THEN a Save icon appears in the navigation at the top of the page
 // WHEN I click on the Save icon
