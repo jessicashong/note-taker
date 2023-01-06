@@ -12,5 +12,13 @@
     "uuid": "^9.0.0"
   },
   "keywords": [],
-  "description": ""
+  "description": "## Description This is a note taking application. The app saves notes in a database. Future production will allow the user to delete the note.",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jessicashong/note-taker.git"
+  },
+  "bugs": {
+    "url": "https://github.com/jessicashong/note-taker/issues"
+  },
+  "homepage": "https://github.com/jessicashong/note-taker#readme"
 }
