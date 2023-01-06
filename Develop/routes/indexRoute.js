@@ -5,12 +5,12 @@ const indexRouter = express.Router();
 indexRouter.get("/notes", (req, res) =>
     res.sendFile(path.join(__dirname, "../public/notes.html"))
 );
-indexRouter.get("/", (req, res) =>
-    res.sendFile(path.join(__dirname, "../public/index.html"))
-);
+// indexRouter.get("/", (req, res) =>
+//     res.sendFile(path.join(__dirname, "../public/index.html"))
+// );
 
 indexRouter.get("*", (req, res) =>
-    res.sendFile(path.join(__dirname, "./public/index.html"))
+    res.sendFile(path.join(__dirname, "../public/index.html"))
 );
 
 
