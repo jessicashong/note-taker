@@ -18,9 +18,9 @@ Visit https://nodejs.org/en/download/ to install the latest version of Node.js a
 Once Node and npm are installed, run `npm start` in the command line to begin answering prompts. Answer all prompts thoroughly.
 
 ## Visual Presentation
-[sampleHTML Walkthrough Video](https://drive.google.com/file/d/1oPi5Kc2HBamPVaUzBwHtnHRU4z3Z-Dok/view)
+![screenshot of note taker](./images/localhost_3001_notes.png)
 
 ## Links 
 GitHub Repo: [https://github.com/jessicashong/note-taker](https://github.com/jessicashong/note-taker)
 
-Heroku Live App: []()
+Heroku Live App: [https://note-taker-jesshong.herokuapp.com/](https://note-taker-jesshong.herokuapp.com/)

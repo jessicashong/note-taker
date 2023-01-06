@@ -1,7 +1,7 @@
 const express = require("express");
+const fs = require("fs");
 const path = require("path");
 const noteRouter = express.Router();
-const fs = require("fs");
 const util = require('util');
 const uuid = require("uuid");
 
@@ -50,19 +50,7 @@ noteRouter.post("/notes", (req, res) => {
     }
 });
 
-//try to get note id to view or delete----activity 18/20
-// GET a single review
-// noteRouter.get("/notes/:note_id", (req, res) => {
-//     const noteId = req.params.note_id;
-//     readAsync('./db/db.json')
-//         .then((data) => JSON.parse(data))
-//         .then((json) => {
-//             const result = json.filter((note) => note.note_id === noteId);
-//             return result.length > 0
-//                 ? res.json(result)
-//                 : res.json('Note ID does not exist')
-//         });
-// });
+
 
 //DELETE request to remove note
 noteRouter.delete('/notes/:note_id', (req, res) => {
