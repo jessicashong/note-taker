@@ -1,7 +1,7 @@
 const express = require("express");
 
-const indexRouter = require('./develop/routes/indexRoute');
-const noteRouter = require("./develop/routes/noteRoute");
+const indexRouter = require('/develop/routes/indexRoute');
+const noteRouter = require("/develop/routes/noteRoute");
 
 const PORT = 3001;
 const app = express();
