@@ -20,5 +20,6 @@
   "bugs": {
     "url": "https://github.com/jessicashong/note-taker/issues"
   },
-  "homepage": "https://github.com/jessicashong/note-taker#readme"
+  "homepage": "https://github.com/jessicashong/note-taker#readme",
+  "devDependencies": {}
 }
