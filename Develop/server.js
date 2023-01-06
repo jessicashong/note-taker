@@ -1,8 +1,8 @@
-const express = require('express');
-const path = require('path');
-const fs = require('fs');
-const db = require('./db/db.json');
-// const uuid = require('./helpers/uuid');
+const express = require("express");
+const path = require("path");
+const fs = require("fs");
+const db = require("./db/db.json");
+const uuid = require("uuid");
 
 const PORT = 3001;
 const app = express();
@@ -10,67 +10,85 @@ const app = express();
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-app.use(express.static('public'));
+app.use(express.static("public"));
 
 //GET request to view notes.html page
-app.get('/notes', (req, res) =>
-res.sendFile(path.join(__dirname, './public/notes.html'))
-);
-// app.get('*', (req, res) => 
-//     res.sendFile(path.join(__dirname, './public/index.html'))
-// );
 
+app.get("/notes", (req, res) =>
+  res.sendFile(path.join(__dirname, "./public/notes.html"))
+);
+
+app.get("/api/notes", (req, res) => res.json(db));
+
+//try to get note id to view or delete----activity 18/20
+// GET a single review
+app.get("/api/reviews/:review_id", (req, res) => {
+  if (req.params.review_id) {
+    console.info(`${req.method} request received to get a single a review`);
+    const reviewId = req.params.review_id;
+    for (let i = 0; i < reviews.length; i++) {
+      const currentReview = reviews[i];
+      if (currentReview.review_id === reviewId) {
+        res.json(currentReview);
+        return;
+      }
+    }
+    res.status(404).send("Review not found");
+  } else {
+    res.status(400).send("Review ID not provided");
+  }
+});
+
+app.get("*", (req, res) =>
+  res.sendFile(path.join(__dirname, "./public/index.html"))
+);
+
+console.log(`Here is a test v4 uuid: ${uuid.v4()}`);
 //GET request to read db.json file
-app.get('/api/notes', (req, res) => res.json(db));
 
 //POST request to add new note
-app.post('/api/notes', (req, res) => {
-    const { title, text } = req.body;
+app.post("/api/notes", (req, res) => {
+  const { title, text } = req.body;
 
-    if(title && text) {
-        const newNote = {
-            title,
-            text,
-            // note_id: uuid(),
-        };
+  if (title && text) {
+    const newNote = {
+      title,
+      text,
+      note_id: uuid.v4(),
+    };
 
-        fs.readFile('./db/db.json', 'utf8', (err, data) => {
-            if (err) {
-                console.error(err);
-            } else {
-                const parsedNotes = JSON.parse(data);
-                parsedNotes.push(newNote);
+    fs.readFile("./db/db.json", "utf8", (err, data) => {
+      if (err) {
+        console.error(err);
+      } else {
+        const parsedNotes = JSON.parse(data);
+        parsedNotes.push(newNote);
 
-                fs.writeFile('./db/db.json', JSON.stringify(parsedNotes), (err) =>
-                    err
-                        ? console.error(err) : console.info('Successfully saved note')
-                );
-            }
-        });
+        fs.writeFile("./db/db.json", JSON.stringify(parsedNotes), (err) =>
+          err ? console.error(err) : console.info("Successfully saved note")
+        );
+      }
+    });
 
-        const response = {
-            status: 'success',
-            body: newNote,
-        };
+    const response = {
+      status: "success",
+      body: newNote,
+    };
 
-        console.log(response);
-        res.status(201).json(response);
-    } else {
-        res.status(500).json('Error in posting note');
-    }
+    console.log(response);
+    res.status(201).json(response);
+  } else {
+    res.status(500).json("Error in posting note");
+  }
 });
 
 // app.delete('/api/notes:id', (req, res) => {
 
 // })
 
-
 app.listen(PORT, () =>
-    console.log(`App listening at http://localhost:${PORT} 🚀`)
+  console.log(`App listening at http://localhost:${PORT} 🚀`)
 );
-
-
-
 
 // WHEN I enter a new note title and the note’s text
 // THEN a Save icon appears in the navigation at the top of the page
